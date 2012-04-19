@@ -5,7 +5,7 @@
   <article id="post-<?php the_ID(); ?>" <?php post_class(get_post_format()); ?>>
     <?php if ( get_post_format() == "link" ):
       $link = get_post_meta($post->ID, '_format_link_url', true); ?>
-      <h1><a href="<?php echo $link; ?>"><?php the_title(); ?>&nbsp;<span class="externalarrow">&rarr;</span></a></h1>
+      <h1><a href="<?php echo $link; ?>"><?php the_title(); ?></a></h1>
     <?php else: ?>
       <h1><?php the_title(); ?></h1>
     <?php endif; ?>

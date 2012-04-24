@@ -2,10 +2,10 @@
   <div id="logo"><a href="<?php bloginfo('url'); ?>">Josh Betz Logo</a></div>
   <nav>
     <ul>
-      <li><a href="<?php bloginfo('url'); ?>">Home</a></li>
-      <li><a href="<?php bloginfo('url'); ?>/about/">About</a></li>
-      <li><a href="<?php bloginfo('url'); ?>/contact/">Contact</a></li>
-      <li><a href="<?php bloginfo('url'); ?>/portfolio/">Portfolio</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/contact/">Contact</a></li>
+      <li><a href="/portfolio/">Portfolio</a></li>
     </ul>
     <form action="http://joshbetz.com/search-results/" onsubmit="return submitQuery()"><input type="text" name="q" id="query-input" size="15" value="" placeholder="Search..."></form>
   </nav>

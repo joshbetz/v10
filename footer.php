@@ -37,7 +37,7 @@
       styleCode();
 
       //fitVids
-      $("article").fitVids();
+      $("article").fitVids({customSelector: "iframe[src^='//speakerdeck.com']"});
     });
   </script>
 

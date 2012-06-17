@@ -194,7 +194,7 @@ add_filter( 'the_title', 'link_titles', 10, 2 );
 function link_titles( $title, $id ) {
   if ( has_post_format( 'link', $id ) && !is_admin() ) {
     if ( is_feed() )
-      return '$rarr; ' . $title;
+      return '&rarr; ' . $title;
     elseif ( is_home() || is_archive() || is_single( $id) )
       return '&rarr;&nbsp' . $title;
   }

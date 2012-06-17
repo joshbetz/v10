@@ -111,7 +111,6 @@ article {
     div { float: left; padding-right: 10px }
     .comment-count { float: right; padding-right: 0; }
   }
-  p, ol, ul, pre, video, blockquote, embed, img, span { margin-bottom: 20px; }
   .twitter-tweet-rendered.tw-align-center { margin-bottom: 20px !important; }
   ol, ul {
     margin-left: 20px;
@@ -136,6 +135,9 @@ article {
     }
   }
   img { max-width: 100%; height: auto; }
+}
+.entry {
+  & > p, & > ol, & > ul, & > pre, & > video, & > blockquote, & > embed, & > img, & > span { margin-bottom: 20px; }
 }
 .footnotes {
   font-size: 13px;
@@ -291,7 +293,6 @@ a {
     color: #666;
     font-size: 12px;
     line-height: 2.2em;
-    margin: 0;
     a { font-weight: bold; }
   }
   .avatar {
@@ -360,7 +361,6 @@ a {
     & > span { 
       display: inline-block;
       position: relative;
-      margin: 0;
     }
   }
 }

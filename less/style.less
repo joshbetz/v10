@@ -269,6 +269,102 @@ a {
     }
 }
 
+.commentlist {
+  margin-left: 80px;
+  list-style: none;
+  article { overflow: visible; }
+  footer { padding: 0 !important; }
+  & > li.comment {
+    background: #f6f6f6;
+    border: 1px solid #ddd;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin: 0 0 1.25em;
+    padding: 1.25em;
+    position: relative;
+  }
+  .pingback {
+    margin: 0 0 1.25em;
+    padding: 0 1.25em;
+  }
+  .comment-meta {
+    color: #666;
+    font-size: 12px;
+    line-height: 2.2em;
+    margin: 0;
+    a { font-weight: bold; }
+  }
+  .avatar {
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 2px #ccc;
+    -moz-box-shadow: 0 1px 2px #ccc;
+    box-shadow: 0 1px 2px #ccc;
+    left: -102px;
+    padding: 0;
+    position: absolute;
+    top: 0;
+  }
+  & > li.bypostauthor {
+    background: #ddd;
+    border-color: #d3d3d3;
+    .comment-meta { color: #575757; }
+  }
+  .children {
+    li.comment {
+      background: #fff;
+      border-left: 1px solid #ddd;
+      -moz-border-radius: 0 3px 3px 0;
+      border-radius: 0 3px 3px 0;
+      margin: 1.25em 0 0;
+      padding: 1.25em;
+      position: relative;
+      list-style: none;
+      .fn { display: block; }
+    }
+    .comment-meta {
+      line-height: 1.25em;
+      margin-left: 50px;
+      span { margin-bottom: 0; }
+    }
+    .comment-content { margin: 1em 0 0 ; }
+    .avatar {
+      background: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      padding: 0;
+      left: 0;
+    }
+    & > li.bypostauthor {
+      background: #ddd;
+      border-color: #d3d3d3;
+    }
+  }
+
+  a.comment-reply-link {
+    background: #eee;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #666;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 8px;
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      background: #888;
+      color: #fff;
+    }
+    & > span { 
+      display: inline-block;
+      position: relative;
+      margin: 0;
+    }
+  }
+}
+
 /* style hacks */
 #wpstats { display: none; }
 #dsq-content #dsq-messagesx-toolbar-icon { width: 17px; height: 22px; }

@@ -15,63 +15,6 @@ function jb_setup() {
   add_theme_support( 'automatic-feed-links' );
 }
 
-add_action('admin_bar_menu', 'customize_admin_bar', 11 );
-function customize_admin_bar( $wp_admin_bar ) {
-
-  /*
-    Change "Howdy"
-  */
-  //get the node that contains "howdy"
-  $my_account = $wp_admin_bar->get_node('my-account');
-  //change the "howdy"
-  $my_account->title = str_replace( 'Howdy,', "'ello", $my_account->title );
-  //remove the original node
-  $wp_admin_bar->remove_node('my-account');
-  //add back our modified version
-  $wp_admin_bar->add_node( $my_account );
-        
-  /*
-    Removing the "W" menu
-    I have nothing against it,
-    but I *never* use it
-  */
-  $wp_admin_bar->remove_menu( 'wp-logo' );
-
-  /*
-    Create a "Favorites" menu
-    First, just create the parent menu item
-  */
-  $wp_admin_bar->add_menu( array(
-    'id' => 'favorites',
-    'parent'    => 'top-secondary', //puts it on the right-hand side
-    'title' => 'Favorites',
-  ) );
-
-  /*
-    Then add links to it
-    This link goes to the All Settings page,
-    so only show it to users that have appropriate privileges
-  */
-  if ( current_user_can( 'manage_options' ) )
-  $wp_admin_bar->add_menu( array(
-    'id' => 'all-settings',
-    'parent'    => 'favorites',
-    'title' => 'All Settings',
-    'href' => admin_url('options.php')
-  ) );
-
-  /*
-          This one goes to the list of the current user's posts
-  */
-  $wp_admin_bar->add_menu( array(
-    'id' => 'my-posts',
-    'parent'    => 'favorites',
-    'title' => 'My Posts',
-    'href' => admin_url( 'edit.php?post_type=post&author=' . get_current_user_id() )
-  ) );
-        
-}
-
 //jQuery Insert From Google
 if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
 function my_jquery_enqueue() {
@@ -155,6 +98,63 @@ function starkers_filter_wp_title( $title, $separator ) {
   return $title;
 }
 
+function v10_comment( $comment, $args, $depth ) {
+  $GLOBALS['comment'] = $comment;
+  switch ( $comment->comment_type ) :
+    case 'pingback' :
+    case 'trackback' :
+  ?>
+  <li class="post pingback">
+    <p><?php _e( 'Pingback:' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' ); ?></p>
+  <?php
+      break;
+    default :
+  ?>
+  <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+    <article id="comment-<?php comment_ID(); ?>" class="comment">
+      <footer class="comment-meta">
+        <div class="comment-author vcard">
+          <?php
+            $avatar_size = 68;
+            if ( '0' != $comment->comment_parent )
+              $avatar_size = 39;
+
+            echo get_avatar( $comment, $avatar_size );
+
+            /* translators: 1: comment author, 2: date and time */
+            printf( __( '%1$s on %2$s <span class="says">said:</span>' ),
+              sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
+              sprintf( '<a href="%1$s"><time pubdate datetime="%2$s">%3$s</time></a>',
+                esc_url( get_comment_link( $comment->comment_ID ) ),
+                get_comment_time( 'c' ),
+                /* translators: 1: date, 2: time */
+                sprintf( __( '%1$s at %2$s' ), get_comment_date(), get_comment_time() )
+              )
+            );
+          ?>
+
+          <?php edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' ); ?>
+        </div><!-- .comment-author .vcard -->
+
+        <?php if ( $comment->comment_approved == '0' ) : ?>
+          <em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></em>
+          <br />
+        <?php endif; ?>
+
+      </footer>
+
+      <div class="comment-content"><?php comment_text(); ?></div>
+
+      <div class="reply">
+        <?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+      </div><!-- .reply -->
+    </article><!-- #comment-## -->
+
+  <?php
+      break;
+  endswitch;
+}
+
 add_action('pre_get_posts', 'remove_twitter_cat' );
 function remove_twitter_cat( )
 {
@@ -190,12 +190,13 @@ function link_permalinks( $link ) {
   return $link;
 }
 
-add_filter( 'the_title', 'link_titles' );
+add_filter( 'the_title', 'link_titles', 10, 2 );
 function link_titles( $title, $id ) {
-  if ( is_feed() && has_post_format( 'link', $id ) ) {
-    return $title . ' &rarr;';
-  } elseif ( has_post_format( 'link', $id ) && !is_admin() ) {
-    return $title . '&nbsp<span class="externalarrow">&rarr;</span>';
+  if ( has_post_format( 'link', $id ) && !is_admin() ) {
+    if ( is_feed() )
+      return '$rarr; ' . $title;
+    elseif ( is_home() || is_archive() || is_single( $id) )
+      return '&rarr;&nbsp' . $title;
   }
   
   return $title;

@@ -25,9 +25,7 @@
 
   <div class="pagenav"><span class="leftnav"><?php previous_post_link('&lsaquo; %link') ?></span><span class="rightnav"><?php next_post_link('%link &rsaquo;') ?></span></div>
 
-  <?php
-    if(!is_preview())
-      comments_template(); ?>
+  <?php comments_template(); ?>
         
   <hr>
 

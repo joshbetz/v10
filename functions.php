@@ -162,8 +162,8 @@ function remove_twitter_cat( )
 
   // Figure out if we need to exclude twitter - exclude from
   // archives (except category archives), feeds, and home page
-  if( is_home() || is_feed() ||
-      ( is_archive() && !is_category() )) {
+  if( is_home() || is_feed() || ( is_admin() && $_REQUEST['cat'] != '14' ) ||
+      ( is_archive() && !is_category() ) ) {
      $wp_query->query_vars['cat'] = '-14';
   }
 }

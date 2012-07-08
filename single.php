@@ -23,7 +23,7 @@
 
   <hr>
 
-  <div class="pagenav"><span class="leftnav"><?php previous_post_link('&lsaquo; %link') ?></span><span class="rightnav"><?php next_post_link('%link &rsaquo;') ?></span></div>
+  <div class="pagenav"><span class="leftnav"><?php previous_post_link('&lsaquo; %link', '%title', false, '14') ?></span><span class="rightnav"><?php next_post_link('%link &rsaquo;', '%title', false, '14') ?></span></div>
 
   <?php comments_template(); ?>
         

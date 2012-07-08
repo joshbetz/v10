@@ -7,8 +7,8 @@
   <?php wp_footer(); ?>
   
   <!-- JavaScript in Footer -->
-  <script src="/js/prettify/prettify.js"></script>
-  <script src="/js/jquery.fitvids.js"></script>
+  <script src="<?php bloginfo('template_url'); ?>/js/prettify/prettify.js"></script>
+  <script src="<?php bloginfo('template_url'); ?>/js/jquery.fitvids.js"></script>
 
   <script>
     function styleCode() 

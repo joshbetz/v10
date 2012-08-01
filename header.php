@@ -82,7 +82,7 @@
   <header id="header">
     <?php if ( is_home() ): ?>
     <h1>Josh Betz</h1>
-    <p>I’m a web designer and developer in Madison, WI. Currently a junior at the University of Wisconsin - Madison studying Computer Science, I like to think of myself as a generalist.</p>
+    <p>I’m a web designer and developer in Madison, WI. Currently a senior at the University of Wisconsin - Madison studying Computer Science, I like to think of myself as a generalist. Intern Code Wrangler at Automattic this summer.</p>
     <?php else: ?>
       <h1><a href="http://joshbetz.com/">Josh Betz</a></h1>
     <?php endif; ?>
